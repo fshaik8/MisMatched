@@ -51,6 +51,12 @@ torch==2.5.1
 transformers==4.51.1
 ```
 
+### Fine-tuning Pre-trained Small Language Models
+
+```
+python nli_train_evaluate.py --data_dir <location of a directory containing the train.tsv, test.tsv and dev.tsv files> --output_dir <directory to save model and results> --model_type <'BERT', 'Sci_BERT', 'Sci_BERT_uncased', 'RoBERTa', 'RoBERTa_large', 'xlnet'> --batch_size <batch size> --num_epochs <number of epochs to train the model for> --epoch_patience <patience for early stopping> --device <device to run your experiment on> --seed <some random seed>
+```
+
 ## License
 MisMatched is licensed with Attribution-ShareAlike 4.0 International [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
 
