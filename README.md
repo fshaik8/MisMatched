@@ -41,6 +41,16 @@ The MISMATCHED benchmark is specifically designed as an out-of-domain evaluation
 
   * Total (Dev + Test): 2,700 sentence pairs.
 
+## Model Training & Testing
+### Requirements
+```
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.6.1
+torch==2.5.1
+transformers==4.51.1
+```
+
 ## License
 MisMatched is licensed with Attribution-ShareAlike 4.0 International [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
 
