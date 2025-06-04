@@ -57,6 +57,11 @@ transformers==4.51.1
 python nli_train_evaluate.py --data_dir <location of a directory containing the train.tsv, test.tsv and dev.tsv files> --output_dir <directory to save model and results> --model_type <'BERT', 'Sci_BERT', 'Sci_BERT_uncased', 'RoBERTa', 'RoBERTa_large', 'xlnet'> --batch_size <batch size> --num_epochs <number of epochs to train the model for> --epoch_patience <patience for early stopping> --device <device to run your experiment on> --seed <some random seed>
 ```
 
+### Baseline Results
+
+We establish strong baselines on MISMATCHED using both Pre-trained Small Language Models (SLMs) and Large Language Models (LLMs). The table below shows Macro F1 scores (%) with standard deviations across different domains and overall performance.
+
+![Alt text](Images/Baseline_Results.png?raw=False "Title")
 ## License
 MisMatched is licensed with Attribution-ShareAlike 4.0 International [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
 
