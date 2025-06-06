@@ -1,0 +1,12 @@
+transformers==4.51.1
+accelerate==1.4.0
+peft==0.12.0
+bitsandbytes==0.45.5
+trl==0.9.6
+scikit-learn
+pandas
+torch
+tqdm
+python-dotenv
+torchvision
+sentence-transformers
