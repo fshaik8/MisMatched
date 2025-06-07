@@ -54,7 +54,7 @@ scikit-learn==1.6.1
 torch==2.5.1
 transformers==4.51.1
 ```
-**Note**: The following 4 models were evaluated in our paper for zero-shot and few-shot settings on the MisMatched test set. Use these exact models to reproduce our results:
+**Note**: The following 4 open-source LLMs were evaluated in our paper using zero-shot and few-shot settings on the MisMatched test set. Use these exact models to reproduce our results:
 
 - microsoft/Phi-3-medium-128k-instruct
 - meta-llama/Llama-2-13b-chat-hf
