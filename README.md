@@ -14,7 +14,7 @@ The construction of the MISMATCHED development and test sets involved a two-phas
 
 In the second phase, all candidate pairs underwent a rigorous manual annotation process conducted by domain experts hired via a crowd-sourcing platform. This step was crucial to ensure high-quality data and create a realistic evaluation benchmark. Only those sentence pairs for which the human-assigned gold label matched the label automatically assigned during the distant supervision phase were included in the final MISMATCHED development and test sets.
 
-We refer the reader to Section 3 of our paper(), for an in-depth description of the dataset construction process, data sources, and detailed statistics.
+We refer the reader to Section 3 of our [paper](https://www.arxiv.org/abs/2506.04603), for an in-depth description of the dataset construction process, data sources, and detailed statistics.
 
 ### Examples
 ![Alt text](Images/Examples.png?raw=False "Title")
@@ -57,7 +57,36 @@ torch==2.5.1
 transformers==4.51.1
 ```
 
-### Fine-tuning Pre-trained Small Language Models
+**Supported Models**
+
+**Note**: To reproduce the zero-shot and few-shot evaluation results reported in our paper for the MisMatched test dataset, please use one of the following 4 models exactly as specified:.
+
+- microsoft/Phi-3-medium-128k-instruct (default)
+- meta-llama/Llama-2-13b-chat-hf
+- meta-llama/Meta-Llama-3.1-8B-Instruct
+- mistralai/Mistral-7B-Instruct-v0.3
+
+#### Zero-Shot Evaluation Script (MisMatched_Zero_Shot.py)
+##### Basic Usage
+```
+python MisMatched_Zero_Shot.py --model_name <model_name> --test_data_path <path_to_test.tsv>
+```
+##### Complete Command with All Parameters
+```
+python MisMatched_Zero_Shot.py --model_name "microsoft/Phi-3-medium-128k-instruct" --test_data_path "MisMatched/test.tsv" --env_file "var.env" --batch_size 128 --max_new_tokens 40 --embedding_model "all-MiniLM-L6-v2" --embedding_batch_size 256 --similarity_threshold 0.25 --sample_size 100 --random_seed 42 --output_file "zero_shot_results.csv" --num_sample_prompts 2 --do_sample --temperature 0.7 --top_p 0.9 --show_sample_responses --save_predictions --log_level "INFO" --force_cpu
+```
+
+#### Few-Shot Evaluation Script (MisMatched_Few_Shot.py)
+##### Basic Usage
+```
+python MisMatched_Few_Shot.py --model_name <model_name> --train_data_path <path_to_train.csv> --test_data_path <path_to_test.tsv>
+```
+##### Complete Command with All Parameters
+```
+python MisMatched_Few_Shot.py --model_name "microsoft/Phi-3-medium-128k-instruct" --train_data_path "sampled_SciNLI_pair1.csv" --test_data_path "MisMatched/test.tsv" --env_file "var.env" --load_in_8bit --batch_size 128 --max_new_tokens 40 --use_sampled_examples --few_shot_samples_per_label 4 --few_shot_seed 0 --embedding_model "all-MiniLM-L6-v2" --embedding_batch_size 256 --similarity_threshold 0.25 --num_sample_prompts 2 --do_sample --temperature 0.7 --top_p 0.9 --show_sample_responses --save_predictions --output_file "few_shot_results.csv" --log_level "INFO"
+```
+
+### Fine-tuning and Evaluation of Pre-trained Small Language Models
 
 ```
 python nli_train_evaluate.py --data_dir <location of a directory containing the train.tsv, test.tsv and dev.tsv files> --output_dir <directory to save model and results> --model_type <'BERT', 'Sci_BERT', 'Sci_BERT_uncased', 'RoBERTa', 'RoBERTa_large', 'xlnet'> --batch_size <batch size> --num_epochs <number of epochs to train the model for> --epoch_patience <patience for early stopping> --device <device to run your experiment on> --seed <some random seed>
