@@ -41,6 +41,12 @@ The MISMATCHED benchmark is specifically designed as an out-of-domain evaluation
 
   * Total (Dev + Test): 2,700 sentence pairs.
 
+### Baseline Results
+
+We establish strong baselines on MISMATCHED using both Pre-trained Small Language Models (SLMs) and Large Language Models (LLMs). The table below shows Macro F1 scores (%) with standard deviations across different domains and overall performance.
+
+![Alt text](Images/Baseline_Results.png?raw=False "Title")
+
 ## Model Training & Testing
 ### Requirements
 ```
@@ -57,11 +63,30 @@ transformers==4.51.1
 python nli_train_evaluate.py --data_dir <location of a directory containing the train.tsv, test.tsv and dev.tsv files> --output_dir <directory to save model and results> --model_type <'BERT', 'Sci_BERT', 'Sci_BERT_uncased', 'RoBERTa', 'RoBERTa_large', 'xlnet'> --batch_size <batch size> --num_epochs <number of epochs to train the model for> --epoch_patience <patience for early stopping> --device <device to run your experiment on> --seed <some random seed>
 ```
 
-### Baseline Results
+### Llama-2 Fine-tuning and Evaluation
 
-We establish strong baselines on MISMATCHED using both Pre-trained Small Language Models (SLMs) and Large Language Models (LLMs). The table below shows Macro F1 scores (%) with standard deviations across different domains and overall performance.
+#### Fine-tuning Script(llama2chat_finetune.py)
 
-![Alt text](Images/Baseline_Results.png?raw=False "Title")
+##### Basic Usage
+```
+python llama2chat_finetune.py --train_path <path_to_train.csv> --dev_path <path_to_dev.csv> --output_dir <output_directory> --save_model_path <final_model_path>
+```
+##### Complete Command with All Parameters
+```
+python llama2chat_finetune.py --train_path "Datasets/train.csv" --dev_path "Datasets/dev.csv" --model_name "meta-llama/Llama-2-13b-chat-hf" --max_memory_per_gpu "80GB" --load_in_4bit --bnb_4bit_use_double_quant --bnb_4bit_quant_type "nf4" --bnb_4bit_compute_dtype "bfloat16" --lora_r 16 --lora_alpha 32 --lora_dropout 0.05 --lora_bias "none" --output_dir "output/" --per_device_train_batch_size 32 --gradient_accumulation_steps 4 --learning_rate 2e-3 --num_train_epochs 3 --save_strategy "epoch" --eval_strategy "epoch" --load_best_model_at_end --fp16 --optim "adamw_bnb_8bit" --max_seq_length 1024 --save_model_path "llama2_chat_classification_trainsampled_3_epochs/" --config_file "config.json" --seed 42
+```
+
+#### Evaluation Script (llama2chat_evaluation.py)
+
+##### Basic Usage
+```
+python llama2chat_evaluation.py --model_path <path_to_finetuned_model> --test_path <path_to_test.csv>
+```
+##### Complete Command with All Parameters
+```
+python llama2chat_evaluation.py --model_path "llama2_chat_classification_trainsampled_3_epochs/" --device "auto" --test_path "Datasets/test.csv" --max_new_tokens 50 --num_return_sequences 1 --batch_size 128 --embedding_model "all-MiniLM-L6-v2" --use_sampling --sample_size 100 --sample_seed 42 --output_dir "evaluation_results/" --save_predictions --save_responses --show_examples 2 --verbose
+```
+
 ## License
 MisMatched is licensed with Attribution-ShareAlike 4.0 International [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
 
