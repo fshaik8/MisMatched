@@ -1,4 +1,4 @@
-# A MISMATCHED Benchmark for Scientific Natural Language Inference
+# [A MISMATCHED Benchmark for Scientific Natural Language Inference](https://www.arxiv.org/abs/2506.04603)
 This repository contains the dataset and code for the ACL 2025 Findings paper "A MISMATCHED Benchmark for Scientific Natural Language Inference" **The dataset can be downloaded from [here](https://drive.google.com/file/d/15GSYcakchdRmKlNoWIigGbCoI7eQLAUR/view?usp=sharing).**
 
 **If you face any difficulties while downloading the dataset, raise an issue in this repository or contact us at fshaik8@uic.edu.**
